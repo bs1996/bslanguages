@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bartosz Stefaniak </title>
+
+		</head>
+		<style>
+			@media only screen and (min-width: 1000px) {
+			  body{
+			  background-size:cover;
+			  background-image: url('pictures/background2.jpg');
+			  background-repeat: no-repeat;
+			}
+			#createaccountform {
+			position:absolute;
+					 top:45%;
+					 left:45%;
+					} 
+			}
+			@media only screen and (max-width: 900px) {
+			  body{
+			  background-size:cover;
+			  background-color: rgb(50, 180, 255);
+			}
+			#createaccountform {
+			position:absolute;
+					 top:0px;
+					 left:300px;
+					} 
+			}
+			@media only screen and (max-width: 600px) {
+			  body{
+			  background-size:cover;
+			  background-color: rgb(50, 180, 255);
+			}
+			#createaccountform {
+			position:absolute;
+					 top:200px;
+					 left:100px;
+					} 
+			}
+					
+			
+			 
+			
+			   </style>
+
+		<body> 
+		
+		<div id="createaccountform"> 
+		<form>
+		<h1>Create Account</h1>
+		<input type ="text" id="login" name ="createlogin" placeholder=login> <br></br>
+		<input type ="password" id="Password" name ="createpassword" placeholder=password> <br></br>
+		<input type ="password" id="confirm" name ="repeatpassword" placeholder=confirmpassword> <br></br>
+		<input type ="text" id="mail" name ="addmail" placeholder=mail>  <br></br>
+		<div id= "create">
+		<button type ="button" name="create" value="create">Create account</button>
+		</div>
+		</form>
+		
+		</body>
+		<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous" > </script>
+		<script language="JavaScript">
+			var response = "";
+			function register()
+		   {
+			var l = document.getElementById('login').value;
+			var p = document.getElementById('Password').value;
+			var m = document.getElementById('mail').value;
+			
+			document.getElementById('login').value = "" ;
+			document.getElementById('Password').value = '' ;
+			document.getElementById('confirm').value = '' ;
+			document.getElementById('mail').value = '' ;
+			var req = new XMLHttpRequest();   
+			req.responseType = 'text';
+			req.open("get", "register.php?l="+ l + "&p=" + p + "&m=" + m, true); 
+			req.send();
+			req.onload = function() 
+				{
+				if (req.readyState === req.DONE) 
+				{
+    			if (req.status === 200) 
+				{
+	  			response = this.responseText;
+				console.log(response);
+
+    			}
+  				}
+	
+	
+ 				};
+
+				
+			}
+
+
+			function validateForm()
+		   {	
+				var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,20}$/;
+			   // check login
+			   if (document.forms[0].elements[0].value == "")
+			   {
+				   alert ("add login!");
+				   return false;
+			   }
+		   
+			   // check password lengh
+			   if (document.forms[0].elements[1].value.length < 6)
+			   {
+				   alert ("Password must have at least 6 characters!");
+				   return false;
+			   }
+			   //check password
+			   if (!(document.forms[0].elements[1].value.match(passw)))
+			   {
+				alert ("Password must have minimum one upper case, one lower case, one digit and one special character");
+					return false;
+			   }
+			   // check mail
+		   
+			   if (document.forms[0].elements[3].value=="")
+			   {
+				   alert ("add mail");
+				   return false;
+			   }
+		   if (document.forms[0].elements[2].value != document.forms[0].elements[1].value)
+			   {
+				   alert ("Passwords are different!");
+				   return false;
+			   }
+			
+			   register();
+			   return true;
+		   }
+
+		   function activate_url()
+		   {
+			if(response == "done")
+			{
+			window.location.href = 'http://192.168.0.149/activate.html';
+			}
+
+		   }
+
+		   function main()
+		   {
+		   document.getElementById("create").onclick=validateForm;
+		   setInterval(activate_url, 1000);
+			document.getElementById("create").addEventListener("click",activate_url);
+		   
+		   }
+		   main();
+		   </script>
+		</html>

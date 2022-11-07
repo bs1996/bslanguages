@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bartosz Stefaniak </title>
+		</head>
+          <style>
+body
+{
+   background-size:cover;
+  background-image: url('pictures/background2.jpg');
+  background-repeat: no-repeat;
+}
+
+h1 {
+  color: yellow;
+}		  
+ </style>  
+<body>
+<br></br><br></br>
+<h1><center>select language and click "start" button </center> <br></br></h1>
+<div id="pictures/obrazek">   <center>  <img src="pictures/flags.jpg"  </center> </div>
+<br></br>
+
+<center><select id="select_language" name="select1">
+		<option value="English">English</option>
+		<option value="Deutsch">Deutsch</option>
+                <option value="Espanol">Espanol</option>
+	</select> </center> <div id="button5"><center><input type="button" name="choose" value="start"></center></div>  
+
+</form>
+</body>
+
+<script>
+newUrl = ""
+function choose_language()
+{
+	var language = document.getElementById("select_language").value;
+	if(language == "English"){
+		newUrl = "http://192.168.0.149/English.html"
+	}
+	if(language == "Deutsch"){
+		newUrl = "http://192.168.0.149/Deutsch.html"
+	}
+	if(language == "Espanol"){
+		newUrl = "http://192.168.0.149/Espanol.html"
+	}
+	window.location = newUrl;
+
+}
+document.getElementById("button5").onclick=choose_language ;
+</script>
+</html>

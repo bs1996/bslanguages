@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bartosz Stefaniak </title>
+    <link rel="stylesheet" href="css/languagesCSS.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta charset="UTF-8">
+		</head>
+
+
+<body> 
+<meta charset="UTF-8">
+
+  
+<center> <h1>Log in to add new words to database </h1> </center>
+
+
+
+<ul>
+	<li><a href="register.html">Create account</a></li>
+	<li><a href="index.html">Start</a></li>
+  </ul>
+ 
+  <input type="button" id ="deleteaccount" name="delete_account" value="delete account"></button>
+
+<form method="POST" >
+
+ 
+	<div id="form5"> 
+	<input type="text" name="writelogin" id="log" placeholder=login  value="" >
+	</div>  
+	<div id="form6">
+	<input type="password" name="writepassword" id="pass1" placeholder=password value= "">
+	</div> 
+	<div id="button4"><input type="button" name="loginbutton" value="Sign in"></button></div>
+	
+	
+	
+	
+	</form>
+
+	<p id="status"></p>
+	<div id="logoutbutton"><input type="button" name="logoutbutton" value="Sign out"></button></div>
+<div id="picture">     
+<img src="pictures/English1.jpg" width="250" height="150"> </div>
+
+
+
+
+
+<select id ="select_language" name="select1">
+		<option value="English">English</option>
+		<option value="Deutsch">Deutsch</option>
+                <option value="Espanol">Espanol</option>
+	</select> 
+	<br></br>
+<div id="button5"><input type="button" name="choose" value="choose"></div>  
+
+	
+
+
+
+<div id="form4"  >
+
+
+	<textarea id="word2" name="word2" placeholder=new_word rows="1">
+	
+	</textarea>
+	<textarea id="translation2" name="translation2" placeholder =translation rows="1">
+	
+	</textarea>
+	</div>
+<div id="button3"><input type="button" name="addword" value="add word"></div> 
+
+<div id="delete_word"><input type="button" name="delete word"  value="delete word" ;></div>  
+
+
+
+
+<form method="POST" >
+<div id="form2">
+
+
+<textarea id="wordarea"name="word" readonly>
+
+</textarea>
+</div>
+
+<div id="button1"><input type="button" name="word" value="next word"></div>  
+
+</form>
+
+
+<div id="form1">
+
+<textarea id="translationarea" name="translation" readonly>
+
+	</textarea>
+</div>
+<div id="button2"> <input type="button" name="translation" value="translate"></div>
+
+
+<div id="empty">
+<textarea></textarea>
+</div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous" > </script>
+<script>
+	setInterval(showForm, 1000);
+	var element10 =document.getElementById('button3');
+  var element1 = document.getElementById('empty');
+  var b = '';
+
+
+function login(){
+var l = document.getElementById('log').value;
+var p = document.getElementById('pass1').value;
+document.getElementById('log').value = "" ;
+document.getElementById('pass1').value = '' ;
+var req = new XMLHttpRequest();   
+req.responseType = 'text';
+req.open("get", "login.php?l="+ l + "&p=" + p, true); 
+req.send();
+req.onload = function() {
+		if (req.readyState === req.DONE) {
+    if (req.status === 200) {
+	  b = this.responseText;
+	console.log(b + "test");
+
+    }
+  }
+	
+	
+ };
+
+
+}
+
+function translate() {
+	element1.style.display = "none";
+	
+}
+function phpdat()
+{
+ var element5 = document.getElementById('empty');
+ element5.style.display='block';
+var req = new XMLHttpRequest(); 
+req.onload = function() {
+	var a= this.responseText;
+	obj = JSON.parse(a);
+	var w= obj.w;
+	var t= obj.t;
+	document.getElementById('wordarea').value=w;
+	document.getElementById('translationarea').value=t;
+	
+ };
+req.open("get", "EnglishData.php", true); 
+req.send();
+
+}
+function showForm()
+{
+	var logged_user = (document.cookie.match(/^(?:.*;)?\s*login_successful\s*=\s*([^;]+)(?:.*)?$/)||[,null])[1]
+	var username = (document.cookie.match(/^(?:.*;)?\s*user\s*=\s*([^;]+)(?:.*)?$/)||[,null])[1]
+
+	console.log(b);
+	if(logged_user == "login_successful")
+{
+	$(document).ready(function(){
+	$("#form4").show();
+  $("#button3").show();
+  $("#logoutbutton").show();
+  $("#deleteaccount").show();
+  $("#log").hide();
+  $("#pass1").hide();
+  $("#button4").hide();
+  $("#delete_word").show();
+
+  document.getElementById("status").innerText = "Logged: " + username;
+});
+}
+
+}
+
+function choose_language()
+{
+	var language = document.getElementById("select_language").value;
+	if(language == "English"){
+		newUrl = "http://192.168.0.149/English.html"
+	}
+	if(language == "Deutsch"){
+		newUrl = "http://192.168.0.149/Deutsch.html"
+	}
+	if(language == "Espanol"){
+		newUrl = "http://192.168.0.149/Espanol.html"
+	}
+	window.location = newUrl;
+
+}
+
+function add_word()
+{
+	var w = document.getElementById('word2').value;
+var t = document.getElementById('translation2').value;
+console.log(w);
+document.getElementById('word2').value = "" ;
+document.getElementById('translation2').value = '' ;
+var req = new XMLHttpRequest();   
+req.responseType = 'text';
+req.open("get", "addword_english.php?w="+ w + "&t=" + t, true); 
+req.send();
+req.onload = function() {
+		if (req.readyState === req.DONE) {
+    if (req.status === 200) {
+	  c = this.responseText;
+	console.log(c);
+
+    }
+  }
+	
+	
+ };
+
+
+
+}
+
+function logout()
+{
+
+	document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	document.cookie = "login_successful=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	window.location = "http://192.168.0.149/English.html" ;
+}
+function delete_account()
+{
+ var l = (document.cookie.match(/^(?:.*;)?\s*user\s*=\s*([^;]+)(?:.*)?$/)||[,null])[1]
+ var req = new XMLHttpRequest();   
+req.responseType = 'text';
+req.open("get", "delete_account.php?l="+ l, true); 
+req.send();
+req.onload = function() {
+		if (req.readyState === req.DONE) {
+    if (req.status === 200) {
+	  b = this.responseText;
+	console.log(b);
+
+    }
+  }
+	
+	
+ };
+
+ logout();
+}
+
+function confirmation()
+{
+	if (confirm("Are you sure?")) 
+	{
+     delete_account();
+} 
+else 
+{
+  return 0;
+}
+
+}
+
+function delete_word()
+{
+	var l = (document.cookie.match(/^(?:.*;)?\s*user\s*=\s*([^;]+)(?:.*)?$/)||[,null])[1]
+	var language = "English"
+	var w = document.getElementById('wordarea').value;
+ var req = new XMLHttpRequest();   
+req.responseType = 'text';
+req.open("get", "delete_word.php?l=" + l + "&la=" + language + "&w=" + w, true); 
+req.send();
+req.onload = function() {
+		if (req.readyState === req.DONE) {
+    if (req.status === 200) {
+	  b = this.responseText;
+	console.log(b);
+		alert("done");
+
+}
+		}
+	}
+}
+
+function main(){
+var logged_user = (document.cookie.match(/^(?:.*;)?\s*login_successful\s*=\s*([^;]+)(?:.*)?$/)||[,null])[1]
+setInterval(showForm, 300);
+document.getElementById("button4").addEventListener("click",showForm);
+if(logged_user == "login_successful")
+{
+	$(document).ready(function(){
+  $("#form4").show();
+  $("#button3").show();
+  $("#logout_button").show();
+  $("#delete_word").show();
+
+});
+}
+document.getElementById("button2").onclick=translate;
+document.getElementById("button1").onclick=phpdat;
+document.getElementById("button4").onclick=login;
+document.getElementById("button5").onclick=choose_language;
+document.getElementById("button3").onclick=add_word;
+document.getElementById("logoutbutton").onclick=logout;
+document.getElementById("deleteaccount").onclick=confirmation;
+document.getElementById("delete_word").onclick=delete_word;
+
+$(document).ready(function(){
+    $("#form4").hide();
+  $("#button3").hide();
+  $("#logoutbutton").hide();
+  $("#deleteaccount").hide();
+  $("#delete_word").hide();
+
+});	}
+main();
+
+
+</script>
+</html>

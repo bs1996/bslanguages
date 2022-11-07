@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bartosz Stefaniak </title>
+		
+		</head>
+		<style>
+		body
+{
+   background-size:cover;
+  background-image: url('pictures/background2.jpg');
+  background-repeat: no-repeat;
+}
+		#activationform {
+position:absolute;
+         top:45%;
+         left:45%;
+		}
+			#title {
+position:absolute;
+         top:30%;
+         left:30%;
+		}
+		</style>
+		<body> 
+		<div id="activationform"> 
+		<form method="POST" >
+		<h1> Hi ! Insert your code from email message to activate your account </h1>
+		<input type ="text" id="login" name="login" placeholder=login>
+		<br></br>
+		<input type ="password" id="password" name="password" placeholder=password>
+		<br></br>
+		<input type ="text" id="code" name="activate" placeholder=code>
+		<br></br>
+		<button type = "button" id="send" name="code">Send code</button>
+		</form>
+		</div>
+		
+		</body>
+		<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous" > </script>
+		<script language="JavaScript">
+			var response = "";
+			function register()
+		   {
+			var l = document.getElementById('login').value;
+			var p = document.getElementById('password').value;
+			var c = document.getElementById('code').value;
+			
+			document.getElementById('login').value = "" ;
+			document.getElementById('password').value = '' ;
+			document.getElementById('code').value = '' ;
+			var req = new XMLHttpRequest();   
+			req.responseType = 'text';
+			req.open("get", "activate.php?l="+ l + "&p=" + p + "&c=" + c, true); 
+			req.send();
+			req.onload = function() 
+				{
+				if (req.readyState === req.DONE) 
+				{
+    			if (req.status === 200) 
+				{
+	  			response = this.responseText;
+				console.log(response);
+
+    			}
+  				}
+	
+	
+ 				};
+
+			    
+			}
+
+
+			function validateForm()
+		   {
+			   // check login
+			   if (document.forms[0].elements[0].value == "")
+			   {
+				   alert ("add login!");
+				   return false;
+			   }
+		   
+			   // check password
+			   if (document.forms[0].elements[1].value.length < 6)
+			   {
+				   alert ("Password must have at least 6 characters!");
+				   return false;
+			   }
+		   
+			   // check code
+		   
+			   if (document.forms[0].elements[2].value=="")
+			   {
+				   alert ("add code");
+				   return false;
+			   }
+			   register();
+		   }
+
+		   function index_url()
+		   {
+			if(response == "done")
+			{
+			window.location.href = 'http://192.168.0.149/index.html';
+			}
+		   }
+
+		   function main()
+		   {
+		   document.getElementById("send").onclick=validateForm;
+		   setInterval(index_url, 1000);
+			document.getElementById("send").addEventListener("click",index_url);
+		   }
+		   main();
+		   </script>
+		</html>
