@@ -1,11 +1,11 @@
 <?php
-		$code=$_GET['c'];
-		$log=$_GET['l'];
-		$pass=$_GET['p'];
+		$code=$_POST['c'];
+		$log=$_POST['l'];
+		$pass=$_POST['p'];
 		session_start();
 		$hashpass=sha1($pass);
 		if($log!='' AND $pass !=''){
-$loginmysql1 = new PDO('mysql:host=localhost;dbname=bslanguages', 'root', '7xd8sG56') or die("błąd");
+$loginmysql1 = new PDO('mysql:host=localhost;dbname=bslanguages', 'example', 'example') or die("błąd");
 
    
 	  $loginquery1 = $loginmysql1->query("SELECT password,code FROM bslanguages.Users WHERE login='{$log}';");

@@ -3,7 +3,7 @@
 
 session_start();
 $login = $_GET['l'];
-$dbh4 = new PDO('mysql:host=localhost;dbname=bslanguages', 'root', '7xd8sG56') or die("błąd");
+$dbh4 = new PDO('mysql:host=localhost;dbname=bslanguages', 'example', 'example') or die("błąd");
 
     if($_SESSION['logged']==true AND $login !='Admin'){
 	  $sth4 = $dbh4->query("select MAX(id) AS Max_Id from bslanguages.{$login}Deutsch;");
@@ -23,7 +23,7 @@ $id2=$id ;
  $dbh4 = null;	  
 $sth4= null ;
 
-	$dbh = new PDO('mysql:host=localhost;dbname=bslanguages', 'root', '7xd8sG56') or die("błąd");
+	$dbh = new PDO('mysql:host=localhost;dbname=bslanguages', 'example', 'example') or die("błąd");
 
    if($_SESSION['logged']==true AND $login !='Admin'){
 	  $sth = $dbh->query("SELECT word FROM {$login}Deutsch WHERE id={$id}");
@@ -38,7 +38,7 @@ $resultstring = $word['word'];
 
 $dbh = null;	  
 $sth= null ; 
-$dbh2 = new PDO('mysql:host=localhost;dbname=bslanguages', 'root', '7xd8sG56') or die("błąd");
+$dbh2 = new PDO('mysql:host=localhost;dbname=bslanguages', 'example', 'example') or die("błąd");
  if($_SESSION['logged']==true AND $login !='Admin'){
 	  $sth2 = $dbh2->prepare("SELECT translation FROM {$login}Deutsch WHERE id={$id2}");
  }

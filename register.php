@@ -2,10 +2,10 @@
 		session_start();
 		$code_rand= rand(10000,1000000);
 		$mailtitle='Account activation' ;
-		$newlogin=$_GET['l'];
+		$newlogin=$_POST['l'];
 		$mailactivation=" Welcome {$newlogin} activation code: {$code_rand}" ;
-$newpassword=$_GET['p'];
-$mail=$_GET['m'];
+$newpassword=$_POST['p'];
+$mail=$_POST['m'];
 		
 			$uppercase = preg_match('@[A-Z]@', $newpassword);
 $lowercase = preg_match('@[a-z]@', $newpassword);
@@ -18,7 +18,7 @@ if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($newpasswo
 
 else{
 	$hashpassword=sha1($newpassword) ;
-			$logmysql = new PDO('mysql:host=localhost;dbname=bslanguages', 'root', '7xd8sG56') or die("błąd");
+			$logmysql = new PDO('mysql:host=localhost;dbname=bslanguages', 'example', 'example') or die("błąd");
 $loginexistquery=$logmysql->query(" SELECT COUNT(login) FROM bslanguages.Users WHERE login = '{$newlogin}' ;");
 $existlogin=$loginexistquery->fetch(PDO::FETCH_ASSOC);
 $loginexist=$existlogin['COUNT(login)'];
@@ -35,7 +35,6 @@ else {
 	  mail($mail, $mailtitle, $mailactivation);
 	  $_SESSION['loginactive']= $newlogin; 
 	  echo('done');
- //$createquery->execute();
 		}
 		}
 		

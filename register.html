@@ -73,27 +73,20 @@
 			document.getElementById('Password').value = '' ;
 			document.getElementById('confirm').value = '' ;
 			document.getElementById('mail').value = '' ;
-			var req = new XMLHttpRequest();   
-			req.responseType = 'text';
-			req.open("get", "register.php?l="+ l + "&p=" + p + "&m=" + m, true); 
-			req.send();
-			req.onload = function() 
-				{
-				if (req.readyState === req.DONE) 
-				{
-    			if (req.status === 200) 
-				{
-	  			response = this.responseText;
-				console.log(response);
+				const xhr = new XMLHttpRequest();
+				xhr.open("POST", 'register.php', true);
 
-    			}
-  				}
-	
-	
- 				};
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
+				xhr.onreadystatechange = () => { 
+				if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+					response = xhr.responseText;
+				}
+				}
+				xhr.send("l="+ l + "&p=" + p + "&m=" + m);
+				}
 				
-			}
+
 
 
 			function validateForm()
@@ -139,7 +132,7 @@
 		   {
 			if(response == "done")
 			{
-			window.location.href = 'http://192.168.0.149/activate.html';
+			window.location.href = 'https://www.bs-languages.cba.pl/activate.html';
 			}
 
 		   }

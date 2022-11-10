@@ -3,12 +3,12 @@
 session_start();
 $_SESSION['logged'] = false;
 if( $_SESSION['logged'] == false){
-$logininput = $_GET['l'];
-$comparepassword = $_GET['p'];
+$logininput = $_POST['l'];
+$comparepassword = $_POST['p'];
 
 $hashpass=sha1($comparepassword);
 if($logininput!='' AND $comparepassword !=''){
-$loginmysql = new PDO('mysql:host=localhost;dbname=bslanguages', 'root', '7xd8sG56') or die("błąd");
+$loginmysql = new PDO('mysql:host=localhost;dbname=bslanguages', 'example', 'example') or die("błąd");
     
 
 	  $loginquery = $loginmysql->query("SELECT password,active FROM bslanguages.Users WHERE login='{$logininput}';");

@@ -4,7 +4,7 @@ session_start();
 $newword=$_GET['w'];
 $newtranslation=$_GET['t'];
 
-	$dbh3 = new PDO('mysql:host=localhost;dbname=bslanguages', 'root', '7xd8sG56') or die("błąd");
+	$dbh3 = new PDO('mysql:host=localhost;dbname=bslanguages', 'example', 'example') or die("błąd");
  
     if($_SESSION['logged']==true AND $_SESSION['login'] !='Admin'){
      
